@@ -9,28 +9,54 @@
 <body>
     <h1>Product Detail</h1>
     <main>
-    
     </main>
     <script>
-        let urlData=new URLSearchParams(window.location.search);
-        let id=urlData.get("id");
-        console.log(id);
-
-        let main=document.querySelector("main");
+        let urlData = new URLSearchParams(window.location.search);
+        let id = urlData.get("id");
 
         async function productFetch(){
-            let url=`https://dummyjson.com/products/${id}`;
-            let pFetch=await fetch(url);
-            let pdata=await pFetch.json();
+            if (!id) {
+                document.body.innerHTML = '<h1>Product not found</h1><p>No product ID was provided.</p>';
+                return;
+            }
 
-            console.log(pdata);
-            let heading=document.createElement("h1");
-            heading.innerText=pdata.title;
+            let url = `https://dummyjson.com/products/${id}`;
+            let pFetch = await fetch(url);
+            let pdata = await pFetch.json();
 
-            main.append(heading);
+            let card = document.createElement("div");
+            card.classList.add("product-detail-card");
+
+            let title = document.createElement("h2");
+            title.innerText = pdata.title;
+
+            let image = document.createElement("img");
+            image.src = pdata.thumbnail;
+            image.alt = pdata.title;
+            image.classList.add("product-detail-image");
+
+            let description = document.createElement("p");
+            description.innerText = pdata.description;
+
+            let price = document.createElement("p");
+            price.innerText = `Price: Rs ${Math.ceil(pdata.price * 95)}/-`;
+            price.classList.add("product-price");
+
+            let rating = document.createElement("p");
+            rating.innerText = `Rating: ${pdata.rating}`;
+
+            let category = document.createElement("p");
+            category.innerText = `Category: ${pdata.category}`;
+
+            let addToCart = document.createElement("button");
+            addToCart.innerText = "Add to Cart";
+            addToCart.classList.add("add-to-cart-button");
+
+            card.append(title, image, description, price, rating, category, addToCart);
+            document.querySelector("main").append(card);
         }
 
-        productFetch();     
+        productFetch();
     </script>
 </body>
 </html>
