@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Product Detail</h1>
+    <script>
+        let urlData=new URLSearchParams(window.location.search);
+        let id=urlData.get("id");
+        console.log(id);
+
+        let main=document.querySelector("main");
+
+        async function productFetch(){
+            let url=`https://dummyjson.com/products/${id}`;
+            let pFetch=await fetch(url);
+            let pdata=await pFetch.json();
+
+            console.log(pdata);
+            let heading=document.createElement("h1");
+            heading.innertext=pdata.title;
+
+            main.append(heading);
+        }
+
+        productFetch();     
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
