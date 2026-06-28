@@ -9,7 +9,7 @@ let main=document.querySelector("main");
     products=productData.products;
     
     products.map((el)=>{
-        let linkingPage=document.createElement("div")
+        let linkingPage=document.createElement("a");
         let outerDiv=document.createElement("div");
         let heading=document.createElement("h1");
         let image=document.createElement("img");
@@ -35,7 +35,7 @@ let main=document.querySelector("main");
         cart.style.padding="15px 20px";
         cart.style.backgroundColor="black";
         cart.style.color="white";
-        cart.style.fontWeigth="bolder";
+        cart.style.fontWeight="bolder";
         cart.style.border="none";
         
         price_cart.append(price,cart);
@@ -44,8 +44,8 @@ let main=document.querySelector("main");
 
         linkingPage.style.textDecoration="none";
         linkingPage.style.color="black";
-
-        linkingPage.href=`productDetail.html`;  
+        linkingPage.style.display="block";
+        linkingPage.href=`productDetail.html?id=${el.id}`;
 
         main.append(linkingPage);
     })
