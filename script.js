@@ -1,6 +1,8 @@
 let main=document.querySelector("main");
 
 (async function productListing(){
+    if (!main) return;
+
     let products=[];
     let url="https://dummyjson.com/products?limit=194";
     let apiRes=await fetch(url);
@@ -24,6 +26,11 @@ let main=document.querySelector("main");
         description.innerText=el.description;
         price.innerText=`Rs ${Math.ceil(el.price*95)}/-`;
         cart.innerText="Add to Cart";
+        cart.classList.add("add-to-cart-button");
+        cart.dataset.productId = el.id;
+        cart.dataset.productTitle = el.title;
+        cart.dataset.productPrice = Math.ceil(el.price * 95);
+        cart.dataset.productThumbnail = el.thumbnail;
 
         outerDiv.classList.add("outerDiv");
         image.style.width="300px";

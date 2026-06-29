@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
     <h1>Product Detail</h1>
     <main>
     </main>
+    <script src="cart.js"></script>
     <script>
         let urlData = new URLSearchParams(window.location.search);
         let id = urlData.get("id");
@@ -51,6 +56,10 @@
             let addToCart = document.createElement("button");
             addToCart.innerText = "Add to Cart";
             addToCart.classList.add("add-to-cart-button");
+            addToCart.dataset.productId = pdata.id;
+            addToCart.dataset.productTitle = pdata.title;
+            addToCart.dataset.productPrice = Math.ceil(pdata.price * 95);
+            addToCart.dataset.productThumbnail = pdata.thumbnail;
 
             card.append(title, image, description, price, rating, category, addToCart);
             document.querySelector("main").append(card);
